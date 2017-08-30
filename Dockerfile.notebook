@@ -19,7 +19,10 @@ RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
 WORKDIR /root
 
 COPY jupyter_notebook_config.py /root/.jupyter/
+COPY start_notebook.sh /root/
 
 EXPOSE 8888
 
-CMD ["jupyter","lab","--ip=0.0.0.0","--no-browser","--allow-root"]
+ENTRYPOINT["./start_notebook.sh"]
+
+CMD [""]
