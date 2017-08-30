@@ -21,8 +21,10 @@ WORKDIR /root
 COPY jupyter_notebook_config.py /root/.jupyter/
 COPY start_notebook.sh /root/
 
+RUN chmod +x /root/start_notebook.sh
+
 EXPOSE 8888
 
-ENTRYPOINT["./start_notebook.sh"]
+ENTRYPOINT ["/root/start_notebook.sh"]
 
 CMD [""]
