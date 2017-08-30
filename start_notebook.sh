@@ -1,7 +1,6 @@
 #!/bin/bash
 # Strict mode
 set -euo pipefail
-set -v
 
 # use PASSWORD env (default is admin ) to set notebook password
 
