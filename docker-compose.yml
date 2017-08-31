@@ -7,4 +7,9 @@ services:
     ports:
       - "8888:8888"
     env_file: nb_secrets.env
+    volumes:
+      - report:/root/report
     restart: always
+
+volumes:
+  report:
