@@ -7,7 +7,7 @@ USER root
 
 RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
     && conda config --set show_channel_urls yes \
-    && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+    && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ \
     && mkdir -p /root/report
 # add conda tsinghua mirror to speed up in CN
 
