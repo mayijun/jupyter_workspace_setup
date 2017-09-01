@@ -17,7 +17,8 @@ RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
-RUN conda install -y jupyter_dashboards=0.7.*
+RUN conda install -y jupyter_dashboards=0.7.* \
+    && conda clean -y -a
 
 WORKDIR /root
 
