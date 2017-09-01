@@ -21,7 +21,6 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
     && echo 'Acquire::https::Verify-Peer "false";'> /etc/apt/apt.conf.d/apt.conf \
     && apt-get update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql \
-    && ACCEPT_EULA=Y apt-get install -y mssql-tools \
     && apt-get clean
 
 
