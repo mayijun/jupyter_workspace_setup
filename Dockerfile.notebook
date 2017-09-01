@@ -8,8 +8,25 @@ USER root
 RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
     && conda config --set show_channel_urls yes \
     && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ \
-    && mkdir -p /root/report
+    && mkdir -p /root/report \
+    && apt-get update \
+    && apt-get install -y apt-transport-https \
+    && apt-get clean
+
+
 # add conda tsinghua mirror to speed up in CN
+
+RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl --insecure https://packages.microsoft.com/config/debian/8/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && echo 'Acquire::https::Verify-Peer "false";'> /etc/apt/apt.conf.d/apt.conf \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql \
+    && ACCEPT_EULA=Y apt-get install -y mssql-tools \
+    && apt-get clean
+
+
+# install sql server odbc. curl use --insecure optioin as my company use self-managed PKI. so ingore the CA issue
+
 
 RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
     && conda install -y ipython=6.0.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
