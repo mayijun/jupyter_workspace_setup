@@ -12,10 +12,12 @@ RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pk
 # add conda tsinghua mirror to speed up in CN
 
 RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
-    && conda install -y ipython=6.0.* jupyterlab=0.27.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
+    && conda install -y ipython=6.0.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
+
+RUN conda install -y jupyter_dashboards=0.7.*
 
 WORKDIR /root
 
