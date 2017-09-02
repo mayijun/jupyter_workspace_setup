@@ -80,7 +80,7 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 
 
 RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
-    && conda install -y ipython=6.1.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
+    && conda install -y ipython=6.1.* pyodbc=4.0.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
