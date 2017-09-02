@@ -1,4 +1,5 @@
 .git/
 .gitignore
 .gitattributes
+.idea/
 README.md

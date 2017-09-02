@@ -4,12 +4,27 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.notebook
+    image: juypter_workspace_notebook
     ports:
       - "8888:8888"
     env_file: nb_secrets.env
     volumes:
       - report:/root/report
     restart: always
+
+  kernel_gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.kernel
+    image: juypter_workspace_kernel_gateway
+    depends_on:
+      - notebook
+    links:
+      - notebook
+    environment:
+      KG_ALLOW_ORIGIN: '*'
+    restart: always
+
 
 volumes:
   report:

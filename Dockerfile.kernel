@@ -1,0 +1,10 @@
+FROM juypter_workspace_notebook
+
+MAINTAINER Simon MA <ma.yijun@outlook.com>
+
+USER root
+
+RUN conda install -y jupyter_kernel_gateway=2.0.* \
+    && conda clean -y -a
+
+CMD ["jupyter", "kernelgateway", "--KernelGatewayApp.ip=0.0.0.0"]

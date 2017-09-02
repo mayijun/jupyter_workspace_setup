@@ -79,7 +79,7 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 # install sql server odbc. curl use --insecure optioin as my company use self-managed PKI. so ingore the CA issue
 
 
-RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
+RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost jupyter_declarativewidgets=0.7.* \
     && conda install -y ipython=6.1.* pyodbc=4.0.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
@@ -97,6 +97,6 @@ RUN chmod +x /root/start_notebook.sh
 
 EXPOSE 8888
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/root/start_notebook.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
-CMD [""]
+CMD ["/root/start_notebook.sh"]
