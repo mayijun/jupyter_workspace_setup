@@ -8,6 +8,8 @@ services:
     ports:
       - "8888:8888"
     env_file: nb_secrets.env
+    environment:
+      DASHBOARD_SERVER_URL: http://dashboards:3000/
     volumes:
       - report:/root/report
     restart: always
@@ -25,6 +27,25 @@ services:
       KG_ALLOW_ORIGIN: '*'
     restart: always
 
+ dashboards:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboards
+      args:
+          # npm versioning:
+          DASHBOARDS_SERVER_VER: '>=0.7.0 <0.8.0'
+    image: juypter_workspace_dashboards_server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - kernel_gateway
+    links:
+      - kernel_gateway
+    env_file: db_secrets.env
+    environment:
+      PORT: 3000
+      KERNEL_GATEWAY_URL: http://kernel_gateway:8888
+    restart: always
 
 volumes:
   report:

@@ -86,6 +86,7 @@ RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost jupyter_declarat
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
 RUN conda install -y jupyter_dashboards=0.7.* jupyter_cms=0.7.* jupyter_dashboards_bundlers=0.9.* \
+    && jupyter bundlerextension enable --sys-prefix --py dashboards_bundlers \
     && conda clean -y -a
 
 WORKDIR /root
