@@ -33,7 +33,7 @@ services:
       dockerfile: Dockerfile.dashboards
       args:
           # npm versioning:
-          DASHBOARDS_SERVER_VER: '>=0.7.0 <0.8.0'
+          DASHBOARDS_SERVER_VER: '>=0.8.0 <0.9.0'
     image: juypter_workspace_dashboards_server
     ports:
       - "3000:3000"
