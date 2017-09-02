@@ -1,34 +1,86 @@
-FROM continuumio/anaconda3:4.4.0
-# build from anaconda python3
+FROM ubuntu:xenial
+# switch from anaconda python3 image to ubuntu clean image, as debian 8 do not support sql
+# server odbc driver well
 
 MAINTAINER Simon MA <ma.yijun@outlook.com>
 
 USER root
 
+#  below part refered docker-stacks/base-notebooks
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update  \
+ && apt-get install -yq --no-install-recommends \
+    wget \
+    bzip2 \
+    ca-certificates \
+    sudo \
+    locales \
+    fonts-liberation \
+    apt-transport-https \
+    git \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen
+
+# Install Tini
+RUN apt-get install -y curl grep sed dpkg && \
+    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
+    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
+    dpkg -i tini.deb && \
+    rm tini.deb && \
+    apt-get clean \
+     && rm -rf /var/lib/apt/lists/*
+
+ENV CONDA_DIR=/opt/conda \
+    SHELL=/bin/bash \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+
+ENV PATH=$CONDA_DIR/bin:$PATH
+
+ENV MINICONDA_VERSION 4.3.21
+RUN cd /tmp && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    echo "c1c15d3baba15bf50293ae963abef853 *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
+    /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
+    $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
+    $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
+    $CONDA_DIR/bin/conda update --all --quiet --yes && \
+    conda clean -tipsy
+
+# below part  refered docker-stacks/base-notebooks
+
+
+
 RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
     && conda config --set show_channel_urls yes \
     && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ \
-    && mkdir -p /root/report \
-    && apt-get update \
-    && apt-get install -y apt-transport-https \
-    && apt-get clean
+    && mkdir -p /root/report
 
 
 # add conda tsinghua mirror to speed up in CN
 
 RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl --insecure https://packages.microsoft.com/config/debian/8/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && curl --insecure https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && echo 'Acquire::https::Verify-Peer "false";'> /etc/apt/apt.conf.d/apt.conf \
     && apt-get update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql \
-    && apt-get clean
+    && ACCEPT_EULA=Y apt-get install mssql-tools \
+    && apt-get clean \
+     && rm -rf /var/lib/apt/lists/*
 
 
 # install sql server odbc. curl use --insecure optioin as my company use self-managed PKI. so ingore the CA issue
 
 
 RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost \
-    && conda install -y ipython=6.0.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
+    && conda install -y ipython=6.1.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
@@ -45,6 +97,6 @@ RUN chmod +x /root/start_notebook.sh
 
 EXPOSE 8888
 
-ENTRYPOINT ["/root/start_notebook.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/root/start_notebook.sh"]
 
 CMD [""]
