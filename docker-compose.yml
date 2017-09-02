@@ -27,7 +27,7 @@ services:
       KG_ALLOW_ORIGIN: '*'
     restart: always
 
- dashboards:
+  dashboards:
     build:
       context: .
       dockerfile: Dockerfile.dashboards
