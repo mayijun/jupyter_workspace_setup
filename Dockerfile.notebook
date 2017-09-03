@@ -11,7 +11,7 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 
 #add ubuntu cn mirror to speed up
-COPY source.list /etc/apt/source.list
+COPY sources.list /etc/apt/sources.list
 RUN chown root:root /etc/apt/source.list && chmod 644 /etc/apt/source.list
 
 RUN apt-get update  \
