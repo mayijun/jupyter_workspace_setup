@@ -48,23 +48,20 @@ RUN cd /tmp && \
     echo "c1c15d3baba15bf50293ae963abef853 *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
+    conda config --set show_channel_urls yes && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ &&\
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
-    $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy
 
+# add conda tsinghua mirror to speed up in CN
+
 # below part  refered docker-stacks/base-notebooks
 
+RUN  mkdir -p /root/report
 
-
-RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
-    && conda config --set show_channel_urls yes \
-    && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ \
-    && mkdir -p /root/report
-
-
-# add conda tsinghua mirror to speed up in CN
+# folder to hold all notebooks
 
 RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl --insecure https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
@@ -78,14 +75,58 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 
 # install sql server odbc. curl use --insecure optioin as my company use self-managed PKI. so ingore the CA issue
 
+# ipython backend layer packages: used for modeling and computing
+ARG IPYTHON
+ARG IPYTHON_SQL
+ARG XGBOOST
+ARG PYODBC
+ARG LIBGCC
+ARG PANDAS
+ARG SCIKIT_LEARN
+ARG JUPYTERLAB
+ARG NOTEBOOK
 
-RUN  pip install ipython-sql==0.3.* pyecharts cufflinks xgboost jupyter_declarativewidgets==0.7.* \
-    && conda install -y ipython=6.1.* pyodbc=4.0.* libgcc=5.2.* jupyterlab=0.27.* notebook=5.0.* jupyter_contrib_nbextensions=0.2.* ipywidgets=7.0.* pandas=0.20.* scikit-learn=0.19.* seaborn=0.8.* \
+RUN pip install ipython-sql==$IPYTHON_SQL \
+    xgboost==$XGBOOST \
+    && rm -rf /tmp/pip-*-unpack \
+    &&  conda install -y ipython=$IPYTHON \
+        pyodbc=$PYODBC \
+        libgcc=$LIBGCC \
+        pandas=$PANDAS \
+        scikit-learn=$SCIKIT_LEARN \
+        jupyterlab=$JUPYTERLAB \
+        notebook=$NOTEBOOK \
+    && conda clean -y -a
+
+# frond end packages: used for graphing and charts
+
+ARG PYECHARTS
+ARG CUFFLINKS
+ARG DECLAR_WIDGET
+ARG IPYWIDGETS
+ARG SEABORN
+ARG JUPY_NBEXT
+
+RUN  pip install  pyecharts==$PYECHARTS \
+     cufflinks==$CUFFLINKS \
+     jupyter_declarativewidgets==$DECLAR_WIDGET \
+    && conda install -y   jupyter_contrib_nbextensions=$JUPY_NBEXT \
+    ipywidgets=$IPYWIDGETS \
+     seaborn=$SEABORN \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
-RUN conda install -y jupyter_dashboards=0.7.* jupyter_cms=0.7.* jupyter_dashboards_bundlers=0.9.* \
+
+# dashboard related packageds
+
+ARG DASHBOARDS_VER
+ARG JUPY_CMS
+ARG JUPY_DASH_BUNDLERS
+
+RUN conda install -y jupyter_dashboards=$DASHBOARDS_VER \
+    jupyter_cms=$JUPY_CMS \
+    jupyter_dashboards_bundlers=$JUPY_DASH_BUNDLERS \
     && jupyter bundlerextension enable --sys-prefix --py dashboards_bundlers \
     && conda clean -y -a
 

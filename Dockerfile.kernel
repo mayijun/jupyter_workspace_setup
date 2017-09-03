@@ -4,7 +4,9 @@ MAINTAINER Simon MA <ma.yijun@outlook.com>
 
 USER root
 
-RUN conda install -y jupyter_kernel_gateway=2.0.* \
+ARG JUPY_KERNEL_GATEWAY
+
+RUN conda install -y jupyter_kernel_gateway=$JUPY_KERNEL_GATEWAY \
     && conda clean -y -a
 
 CMD ["jupyter", "kernelgateway", "--KernelGatewayApp.ip=0.0.0.0"]
