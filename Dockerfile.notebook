@@ -91,7 +91,8 @@ ARG SCIKIT_LEARN
 ARG JUPYTERLAB
 ARG NOTEBOOK
 
-RUN pip install ipython-sql==$IPYTHON_SQL \
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    ipython-sql==$IPYTHON_SQL \
     xgboost==$XGBOOST \
     && rm -rf /tmp/pip-*-unpack \
     &&  conda install -y ipython=$IPYTHON \
@@ -112,7 +113,8 @@ ARG IPYWIDGETS
 ARG SEABORN
 ARG JUPY_NBEXT
 
-RUN  pip install  pyecharts==$PYECHARTS \
+RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+     pyecharts==$PYECHARTS \
      cufflinks==$CUFFLINKS \
      jupyter_declarativewidgets==$DECLAR_WIDGET \
     && conda install -y   jupyter_contrib_nbextensions=$JUPY_NBEXT \
