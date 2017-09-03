@@ -9,6 +9,7 @@ services:
           IPYTHON: '6.1.*'
           IPYTHON_SQL: '0.3.*'
           PYODBC: '4.0.*'
+          LIBGCC: '5.2.*'
           XGBOOST: '0.6a2'
           PYODBC: '5.2.*'
           PANDAS: '0.20.*'
