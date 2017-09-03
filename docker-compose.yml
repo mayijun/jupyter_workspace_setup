@@ -11,7 +11,7 @@ services:
           PYODBC: '4.0.*'
           LIBGCC: '5.2.*'
           XGBOOST: '0.6a2'
-          PYODBC: '5.2.*'
+          PYODBC: '4.0.*'
           PANDAS: '0.20.*'
           SCIKIT_LEARN: '0.19.*'
           JUPYTERLAB: '0.27.*'
