@@ -11,11 +11,8 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 
 #add ubuntu cn mirror to speed up
-
-RUN printf "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse\n">/etc/apt/sources.list \
-    && printf "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse\n">>/etc/apt/sources.list \
-    && printf "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse\n">>/etc/apt/sources.list \
-    && printf "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse\n">>/etc/apt/sources.list
+COPY source.list /etc/apt/source.list
+RUN chown root:root /etc/apt/source.list && chmod 644 /etc/apt/source.list
 
 RUN apt-get update  \
  && apt-get install -yq --no-install-recommends \
