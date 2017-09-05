@@ -1,6 +1,7 @@
 # Jupyter Workspace Setup
 I created this project to help me re-produce my python juypter notebook working environment very quickly using docker.
-
+## Features
+* This docker setup is using CN mirrors for all kinds of sources (apt, npm, conda, pip, etc.) to speed up build time in CN. 
 ## Prerequisites
 * Docker Compose 1.6.0+
 * Docker Engine 1.10.0+
