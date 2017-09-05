@@ -69,6 +69,8 @@ services:
     links:
       - kernel_gateway
     env_file: db_secrets.env
+    volumes:
+      - dashboard:/srv/app/data
     environment:
       PORT: 3000
       KERNEL_GATEWAY_URL: http://kernel_gateway:8888
@@ -76,3 +78,4 @@ services:
 
 volumes:
   report:
+  dashboard:
