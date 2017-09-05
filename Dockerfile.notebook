@@ -64,10 +64,6 @@ RUN cd /tmp && \
 
 # below part  refered docker-stacks/base-notebooks
 
-RUN  mkdir -p /root/report
-
-# folder to hold all notebooks
-
 RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl --insecure https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && echo 'Acquire::https::Verify-Peer "false";'> /etc/apt/apt.conf.d/apt.conf \
@@ -136,6 +132,11 @@ RUN conda install -y jupyter_dashboards=$DASHBOARDS_VER \
     jupyter_dashboards_bundlers=$JUPY_DASH_BUNDLERS \
     && jupyter bundlerextension enable --sys-prefix --py dashboards_bundlers \
     && conda clean -y -a
+
+
+RUN  mkdir -p /root/report
+
+# folder to hold all notebooks
 
 WORKDIR /root
 
