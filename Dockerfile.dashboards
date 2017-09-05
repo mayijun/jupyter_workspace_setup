@@ -22,7 +22,7 @@ ARG DASHBOARDS_SERVER_VER
 # npm throws an error when installing a dependency, because we
 # are root. This setting works around that issue.
 RUN npm config set unsafe-perm true && \
-    npm install -g jupyter-dashboards-server@"$DASHBOARDS_SERVER_VER" && \
+    npm install -g jupyter-dashboards-server@"$DASHBOARDS_SERVER_VER"  --registry=https://registry.npm.taobao.org && \
     npm config set unsafe-perm false
 
 # run as unprivileged user
