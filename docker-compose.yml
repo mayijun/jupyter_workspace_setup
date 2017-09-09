@@ -75,7 +75,17 @@ services:
       PORT: 3000
       KERNEL_GATEWAY_URL: http://kernel_gateway:8888
     restart: always
-
+  nbviewer:
+    build:
+      context:  .
+      dockerfile: Dockerfile.nbviewer
+    image: jupyter_workspace_nbviewer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - notebook
+    volumes:
+      - report:/report:ro
 volumes:
   report:
   dashboard:
