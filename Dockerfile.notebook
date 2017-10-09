@@ -62,7 +62,7 @@ RUN cd /tmp && \
 
 # add conda tsinghua mirror to speed up in CN
 
-# below part  refered docker-stacks/base-notebooks
+# below part  referred docker-stacks/base-notebooks
 
 RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl --insecure https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
@@ -74,7 +74,7 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
      && rm -rf /var/lib/apt/lists/*
 
 
-# install sql server odbc. curl use --insecure optioin as my company use self-managed PKI. so ingore the CA issue
+# install sql server odbc. curl use --insecure option as my company use self-managed PKI. so ingore the CA issue
 
 # ipython backend layer packages: used for modeling and computing
 ARG IPYTHON
