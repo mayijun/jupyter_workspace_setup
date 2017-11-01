@@ -134,6 +134,8 @@ RUN conda install -y jupyter_dashboards=$DASHBOARDS_VER \
     && conda clean -y -a
 
 
+
+
 RUN  mkdir -p /root/report
 
 # folder to hold all notebooks
