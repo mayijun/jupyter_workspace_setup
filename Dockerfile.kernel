@@ -9,4 +9,6 @@ ARG JUPY_KERNEL_GATEWAY
 RUN conda install -y jupyter_kernel_gateway=$JUPY_KERNEL_GATEWAY \
     && conda clean -y -a
 
+RUN conda remove -y  ipywidgets widgetsnbextension && conda install -y ipywidgets=5.2.* && conda clean -y -a
+
 CMD ["jupyter", "kernelgateway", "--KernelGatewayApp.ip=0.0.0.0"]
