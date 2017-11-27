@@ -19,7 +19,7 @@ services:
 
           PYECHARTS: '0.2.*'
           CUFFLINKS: '0.12.*'
-          DECLAR_WIDGET: '0.7.*'
+          DECLAR_WIDGET: '0.6.*'
           IPYWIDGETS: '7.0.*'
           SEABORN: '0.8.*'
           JUPY_NBEXT: '0.2.*'
