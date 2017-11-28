@@ -15,7 +15,7 @@ services:
           PANDAS: '0.20.*'
           SCIKIT_LEARN: '0.19.*'
           JUPYTERLAB: '0.27.*'
-          NOTEBOOK: '5.0.*'
+          NOTEBOOK: '5.2.*'
 
           PYECHARTS: '0.2.*'
           CUFFLINKS: '0.12.*'
