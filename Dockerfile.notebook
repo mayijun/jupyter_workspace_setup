@@ -26,6 +26,7 @@ RUN apt-get update  \
     git \
     tzdata \
     gcc \
+    g++ \
     fonts-dejavu \
     gfortran \
     libcairo2-dev \
@@ -105,8 +106,9 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
         notebook=$NOTEBOOK \
     && conda clean -y -a
 
+ARG R_ESSENTIAL
 
-RUN conda install  --yes -c r r-essentials && \
+RUN conda install  --yes -c r r-essentials=$R_ESSENTIAL && \
     conda clean -y -a
 
 # frond end packages: used for graphing and charts

@@ -17,6 +17,8 @@ services:
           JUPYTERLAB: '0.27.*'
           NOTEBOOK: '5.2.*'
 
+          R_ESSENTIAL: '1.7.*'
+
           PYECHARTS: '0.2.*'
           CUFFLINKS: '0.12.*'
           DECLAR_WIDGET: '0.6.*'
