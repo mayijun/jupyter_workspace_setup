@@ -79,15 +79,23 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
     && apt-get clean \
      && rm -rf /var/lib/apt/lists/*
 
-
 # install sql server odbc. curl use --insecure option as my company use self-managed PKI. so ingore the CA issue
+
+# install db related python package
+ARG PYODBC
+ARG LIBGCC
+ARG PSYCOPG2
+
+
+RUN conda install -y pyodbc=$PYODBC \
+        libgcc=$LIBGCC \
+	psycopg2=$PSYCOPG2 \
+    && conda clean -y -a 
 
 # ipython backend layer packages: used for modeling and computing
 ARG IPYTHON
 ARG IPYTHON_SQL
 ARG XGBOOST
-ARG PYODBC
-ARG LIBGCC
 ARG PANDAS
 ARG SCIKIT_LEARN
 ARG JUPYTERLAB
@@ -98,8 +106,6 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
     xgboost==$XGBOOST \
     && rm -rf /tmp/pip-*-unpack \
     &&  conda install -y ipython=$IPYTHON \
-        pyodbc=$PYODBC \
-        libgcc=$LIBGCC \
         pandas=$PANDAS \
         scikit-learn=$SCIKIT_LEARN \
         jupyterlab=$JUPYTERLAB \
