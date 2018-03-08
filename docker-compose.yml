@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.notebook
       args:
           # packages versioning:
+          NODEJS: '8.9.*'
+
           IPYTHON: '6.2.*'
           IPYTHON_SQL: '0.3.*'
           PYODBC: '4.0.*'

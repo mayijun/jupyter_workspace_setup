@@ -81,6 +81,13 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 
 # install sql server odbc. curl use --insecure option as my company use self-managed PKI. so ingore the CA issue
 
+#install nodejs as jupyterlab extention required
+
+ARG NODEJS
+
+RUN conda install -y nodejs=$NODEJS && conda clean -y -a
+
+
 # install db related python package
 ARG PYODBC
 ARG LIBGCC
@@ -135,7 +142,7 @@ RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
-
+RUN jupyter labextension install @jupyterlab/plotly-extension
 
 RUN  mkdir -p /root/report
 
