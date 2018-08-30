@@ -53,7 +53,7 @@ ENV CONDA_DIR=/opt/conda \
 
 ENV PATH=$CONDA_DIR/bin:$PATH
 
-ENV MINICONDA_VERSION 4.3.21
+ARG MINICONDA_VERSION
 RUN cd /tmp && \
     wget --quiet https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "c1c15d3baba15bf50293ae963abef853 *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \

@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.notebook
       args:
           # packages versioning:
+          MINICONDA_VERSION: '4.5.4'
+
           NODEJS: '8.11.*'
 
           IPYTHON: '6.5.*'
