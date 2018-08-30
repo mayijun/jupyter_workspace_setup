@@ -6,25 +6,25 @@ services:
       dockerfile: Dockerfile.notebook
       args:
           # packages versioning:
-          NODEJS: '8.9.*'
+          NODEJS: '8.11.*'
 
-          IPYTHON: '6.2.*'
+          IPYTHON: '6.5.*'
           IPYTHON_SQL: '0.3.*'
           PYODBC: '4.0.*'
-          PSYCOPG2: '2.7.3.*'
+          PSYCOPG2: '2.7.5.*'
           LIBGCC: '7.2.*'
-          XGBOOST: '0.7.post3'
-          PANDAS: '0.22.*'
+          XGBOOST: '0.80'
+          PANDAS: '0.23.*'
           SCIKIT_LEARN: '0.19.*'
-          JUPYTERLAB: '0.31.*'
-          NOTEBOOK: '5.4.*'
+          JUPYTERLAB: '0.34.*'
+          NOTEBOOK: '5.6.*'
 
-          R_ESSENTIAL: '1.7.*'
+          R_ESSENTIAL: '3.5.*'
 
-          PYECHARTS: '0.3.*'
-          CUFFLINKS: '0.12.*'
-          IPYWIDGETS: '7.1.*'
-          SEABORN: '0.8.*'
+          PYECHARTS: '0.5.*'
+          CUFFLINKS: '0.13.*'
+          IPYWIDGETS: '7.4.*'
+          SEABORN: '0.9.*'
 
 
     image: juypter_workspace_notebook
