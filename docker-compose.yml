@@ -24,6 +24,7 @@ services:
           R_ESSENTIAL: '3.5.*'
 
           PYECHARTS: '0.5.*'
+          PLOTLY: '2.7.0'
           CUFFLINKS: '0.13.*'
           IPYWIDGETS: '7.4.*'
           SEABORN: '0.9.*'

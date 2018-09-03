@@ -126,6 +126,7 @@ RUN conda install  --yes -c r r-essentials=$R_ESSENTIAL && \
 # frond end packages: used for graphing and charts
 
 ARG PYECHARTS
+ARG PLOTLY
 ARG CUFFLINKS
 ARG IPYWIDGETS
 ARG SEABORN
@@ -134,6 +135,7 @@ ARG JUPY_NBEXT
 RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
      pyecharts==$PYECHARTS \
      cufflinks==$CUFFLINKS \
+     plotly==$PLOTLY \
     && conda install -y \
     ipywidgets=$IPYWIDGETS \
      seaborn=$SEABORN \
@@ -142,6 +144,8 @@ RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
 RUN jupyter labextension install @jupyterlab/plotly-extension
+
+RUN jupyter labextension install @jupyterlab/git
 
 RUN  mkdir -p /root/report
 
