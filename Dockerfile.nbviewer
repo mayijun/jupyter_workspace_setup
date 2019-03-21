@@ -1,9 +1,0 @@
-FROM jupyter/nbviewer
-
-USER root
-
-RUN mkdir -p /report && chmod -R 666 /report
-
-USER nobody
-
-CMD ["python3", "-m", "nbviewer","--port=8080","--localfiles='/report'"]
