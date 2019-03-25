@@ -134,6 +134,7 @@ ARG SEABORN
 ARG JUPY_NBEXT
 
 RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+     plotly-express \
      pyecharts==$PYECHARTS \
      cufflinks==$CUFFLINKS \
      plotly==$PLOTLY \
