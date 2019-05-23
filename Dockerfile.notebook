@@ -97,6 +97,7 @@ RUN conda install -y pyodbc=$PYODBC \
         libgcc=$LIBGCC \
 	psycopg2=$PSYCOPG2 \
 	xlsxwriter \
+	xlrd \
     && conda clean -y -a 
 
 # ipython backend layer packages: used for modeling and computing
