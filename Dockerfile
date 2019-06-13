@@ -55,12 +55,11 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 
 ARG MINICONDA_VERSION
 RUN cd /tmp && \
-    wget --quiet https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     conda config --set show_channel_urls yes && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ &&\
+    conda config --add channels conda-forge &&\
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy
@@ -97,6 +96,7 @@ RUN conda install -y pyodbc=$PYODBC \
         libgcc=$LIBGCC \
 	psycopg2=$PSYCOPG2 \
 	xlsxwriter \
+	xlrd \
     && conda clean -y -a 
 
 # ipython backend layer packages: used for modeling and computing
