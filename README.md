@@ -9,7 +9,6 @@ I created this project to help me re-produce my python juypter notebook working 
 ## Requirement
 ### Port (Default)
 * 8888
-* 8080
 
 ## Quick Start
 ### Change setting

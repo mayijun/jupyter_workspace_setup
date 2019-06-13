@@ -145,9 +145,22 @@ RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
 
-RUN jupyter labextension install @jupyterlab/plotly-extension
+# Avoid "JavaScript heap out of memory" errors during extension installation
+# (OS X/Linux)
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN jupyter labextension install @jupyterlab/git
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+
+RUN jupyter labextension install jupyterlab_bokeh && \
+    jupyter labextension install jupyter-matplotlib
+
+RUN jupyter labextension install @jupyterlab/plotly-extension && \
+    jupyter labextension install plotlywidget && \
+    jupyter labextension install jupyterlab-chart-editor
+
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install --upgrade jupyterlab-git && rm -rf /tmp/pip-*-unpack  && \
+    jupyter serverextension enable --py jupyterlab_git
 
 RUN  mkdir -p /root/report
 
