@@ -29,7 +29,7 @@ services:
           IPYWIDGETS: '7.4.*'
           SEABORN: '0.9.*'
 
-          LAB_MANAGER: '@0.38.1'
+          LAB_MANAGER: '0.38.1'
 
 
     image: juypter_workspace_notebook
