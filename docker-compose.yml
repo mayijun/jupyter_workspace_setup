@@ -23,8 +23,8 @@ services:
 
           R_ESSENTIAL: '3.5.*'
 
-          PYECHARTS: '0.5.*'
-          PLOTLY: '3.7.0'
+          PYECHARTS: '1.2.*'
+          PLOTLY: '3.10.0'
           CUFFLINKS: '0.14.*'
           IPYWIDGETS: '7.4.*'
           SEABORN: '0.9.*'
