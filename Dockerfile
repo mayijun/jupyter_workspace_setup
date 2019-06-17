@@ -149,7 +149,9 @@ RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
 # (OS X/Linux)
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+ARG LAB_MANAGER
+
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@$LAB_MANAGER
 
 RUN jupyter labextension install jupyterlab_bokeh && \
     jupyter labextension install jupyter-matplotlib
