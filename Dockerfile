@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 # switch from anaconda python3 image to ubuntu clean image, as debian 8 do not support sql
 # server odbc driver well
 
@@ -24,17 +24,16 @@ RUN apt-get update  \
     fonts-liberation \
     apt-transport-https \
     git \
+    gnupg \
     tzdata \
-    gcc \
-    g++ \
+    build-essential \
     fonts-dejavu \
     gfortran \
     libcairo2-dev \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen
+ && rm -rf /var/lib/apt/lists/* \
+ && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
 
 # Install Tini
 RUN apt-get update  && apt-get install -y curl grep sed dpkg && \
@@ -69,11 +68,10 @@ RUN cd /tmp && \
 # below part  referred docker-stacks/base-notebooks
 
 RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl --insecure https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && curl --insecure https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && echo 'Acquire::https::Verify-Peer "false";'> /etc/apt/apt.conf.d/apt.conf \
     && apt-get update \
-    && ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc unixodbc-dev \
-    && ACCEPT_EULA=Y apt-get install -y mssql-tools \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools libssl1.0.0 unixodbc unixodbc-dev \
     && apt-get clean \
      && rm -rf /var/lib/apt/lists/*
 
@@ -86,18 +84,19 @@ ARG NODEJS
 RUN conda install -y nodejs=$NODEJS && conda clean -y -a
 
 
-# install db related python package
+# install db related python package and basic packages
 ARG PYODBC
 ARG LIBGCC
 ARG PSYCOPG2
 
 
-RUN conda install -y pyodbc=$PYODBC \
-        libgcc=$LIBGCC \
-	psycopg2=$PSYCOPG2 \
-	xlsxwriter \
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    psycopg2-binary==$PSYCOPG2 \
+    pyodbc==$PYODBC \
+    xlsxwriter \
 	xlrd \
-    && conda clean -y -a 
+	python-dateutil \
+    && rm -rf /tmp/pip-*-unpack
 
 # ipython backend layer packages: used for modeling and computing
 ARG IPYTHON
@@ -136,7 +135,6 @@ ARG JUPY_NBEXT
 RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
      plotly-express \
      pyecharts==$PYECHARTS \
-     cufflinks==$CUFFLINKS \
      plotly==$PLOTLY \
     && conda install -y \
     ipywidgets=$IPYWIDGETS \

@@ -10,26 +10,24 @@ services:
 
           NODEJS: '10.13.*'
 
-          IPYTHON: '7.3.*'
+          IPYTHON: '7.6.*'
           IPYTHON_SQL: '0.3.*'
           PYODBC: '4.0.*'
-          PSYCOPG2: '2.7.6.*'
-          LIBGCC: '7.2.*'
-          XGBOOST: '0.80'
+          PSYCOPG2: '2.8.*'
+          XGBOOST: '0.90'
           PANDAS: '0.24.*'
           SCIKIT_LEARN: '0.19.*'
-          JUPYTERLAB: '0.35.*'
-          NOTEBOOK: '5.7.5'     #5.7.8 has download issue , so rollback
+          JUPYTERLAB: '1.0.*'
+          NOTEBOOK: '5.7.8'     #5.7.8 has download issue , so rollback
 
-          R_ESSENTIAL: '3.5.*'
+          R_ESSENTIAL: '3.6.*'
 
-          PYECHARTS: '1.2.*'
-          PLOTLY: '3.10.0'
-          CUFFLINKS: '0.14.*'
-          IPYWIDGETS: '7.4.*'
+          PYECHARTS: '1.3.*'
+          PLOTLY: '4.*'
+          IPYWIDGETS: '7.5.*'
           SEABORN: '0.9.*'
 
-          LAB_MANAGER: '0.38.1'
+          LAB_MANAGER: '1.0'
 
 
     image: juypter_workspace_notebook
