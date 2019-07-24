@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
           # packages versioning:
-          MINICONDA_VERSION: '4.5.12'
+          MINICONDA_VERSION: '4.7.10'
 
           NODEJS: '10.13.*'
 
