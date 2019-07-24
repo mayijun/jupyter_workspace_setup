@@ -90,7 +90,7 @@ ARG LIBGCC
 ARG PSYCOPG2
 
 
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+RUN pip install \
     psycopg2-binary==$PSYCOPG2 \
     pyodbc==$PYODBC \
     xlsxwriter \
@@ -107,7 +107,7 @@ ARG SCIKIT_LEARN
 ARG JUPYTERLAB
 ARG NOTEBOOK
 
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+RUN pip install \
     ipython-sql==$IPYTHON_SQL \
     xgboost==$XGBOOST \
     && rm -rf /tmp/pip-*-unpack \
@@ -132,7 +132,7 @@ ARG IPYWIDGETS
 ARG SEABORN
 ARG JUPY_NBEXT
 
-RUN  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+RUN  pip install \
      plotly-express \
      pyecharts==$PYECHARTS \
      plotly==$PLOTLY \
