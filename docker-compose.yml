@@ -18,7 +18,7 @@ services:
           PANDAS: '0.24.*'
           SCIKIT_LEARN: '0.19.*'
           JUPYTERLAB: '1.0.*'
-          NOTEBOOK: '5.7.8'     #6.0.0 has download issue , so rollback
+          NOTEBOOK: '5.7.5'     #6.0.0 and 5.7.8 has download issue , so rollback
 
           R_ESSENTIAL: '3.6.*'
 
