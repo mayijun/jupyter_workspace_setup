@@ -178,6 +178,8 @@ RUN jupyter labextension install @jupyterlab/git && \
     pip install --upgrade jupyterlab-git && rm -rf /tmp/pip-*-unpack  && \
     jupyter serverextension enable --py jupyterlab_git
 
+RUN jupyter lab build
+
 RUN  mkdir -p /root/report
 
 # folder to hold all notebooks
