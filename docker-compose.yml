@@ -21,7 +21,7 @@ services:
           NUMPY: '1.19.*'
           NUMBA: '0.50.*'
           SCIKIT_LEARN: '0.19.*'
-          JUPYTERLAB: '2.1.4'
+          JUPYTERLAB: '2.1.*'
           NOTEBOOK: '6.0.*'
           XEUS_PYTHON: '0.6.*'
 
