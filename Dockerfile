@@ -117,16 +117,18 @@ ARG XEUS_PYTHON
 
 RUN pip install ${PIPOPTION}\
     xgboost==$XGBOOST \
+    ipython==$IPYTHON \
+    numpy==$NUMPY \
+    numba==$NUMBA \
+    pandas==$PANDAS \
+    scikit-learn==$SCIKIT_LEARN \
+    xeus-python==$XEUS_PYTHON \
+    ptvsd \
     && rm -rf /tmp/pip-*-unpack \
-    &&  conda install -c conda-forge -y ipython=$IPYTHON \
-        pandas=$PANDAS \
-        numpy=$NUMPY \
-        numba=$NUMBA \
+    &&  conda install -c conda-forge -y  \
         scikit-learn=$SCIKIT_LEARN \
         jupyterlab=$JUPYTERLAB \
         notebook=$NOTEBOOK \
-        xeus-python=$XEUS_PYTHON \
-        ptvsd \
     && conda clean -y -a
 
 ARG R_ESSENTIAL
