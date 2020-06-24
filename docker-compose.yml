@@ -8,26 +8,31 @@ services:
           # packages versioning:
           MINICONDA_VERSION: '4.7.10'
 
-          NODEJS: '10.13.*'
+          PYTHON: '3.7'
 
-          IPYTHON: '7.6.*'
-          IPYTHON_SQL: '0.3.*'
+          NODEJS: '12.*'
+
+          IPYTHON: '7.15.*'
           PYODBC: '4.0.*'
           PSYCOPG2: '2.8.*'
-          XGBOOST: '0.90'
-          PANDAS: '0.24.*'
+          XGBOOST: '1.1.*'
+          PANDAS: '1.0.*'
+          NUMPY: '1.19.*'
+          NUMBA: '0.50.*'
           SCIKIT_LEARN: '0.19.*'
-          JUPYTERLAB: '1.0.*'
-          NOTEBOOK: '5.7.5'     #6.0.0 and 5.7.8 has download issue , so rollback
+          JUPYTERLAB: '2.1.4'
+          NOTEBOOK: '6.0.*'
+          XEUS_PYTHON: '0.6.*'
 
           R_ESSENTIAL: '3.6.*'
 
-          PYECHARTS: '1.3.*'
+          PYECHARTS: '1.*'
           PLOTLY: '4.*'
           IPYWIDGETS: '7.5.*'
-          SEABORN: '0.9.*'
+          SEABORN: '0.10.*'
 
-          LAB_MANAGER: '1.0'
+          LAB_MANAGER: '2.0'
+
 
 
     image: juypter_workspace_notebook

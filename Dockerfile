@@ -11,8 +11,8 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 
 #add ubuntu cn mirror to speed up
-COPY sources.list /etc/apt/sources.list
-RUN chown root:root /etc/apt/sources.list && chmod 644 /etc/apt/sources.list
+#COPY sources.list /etc/apt/sources.list
+#RUN chown root:root /etc/apt/sources.list && chmod 644 /etc/apt/sources.list
 
 RUN apt-get update  \
  && apt-get install -yq --no-install-recommends \
@@ -54,11 +54,12 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 
 ARG MINICONDA_VERSION
 RUN cd /tmp && \
-    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    wget --no-check-certificate --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     conda config --set show_channel_urls yes && \
     conda config --add channels conda-forge &&\
+    conda config --set ssl_verify false &&\
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy
@@ -80,8 +81,11 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 #install nodejs as jupyterlab extention required
 
 ARG NODEJS
+ARG PYTHON
 
-RUN conda install -y nodejs=$NODEJS && conda clean -y -a
+RUN conda install python=$PYTHON  && conda clean -y -a
+
+RUN conda install -c conda-forge -y nodejs=$NODEJS && conda clean -y -a
 
 
 # install db related python package and basic packages
@@ -90,7 +94,7 @@ ARG LIBGCC
 ARG PSYCOPG2
 
 
-RUN pip install  -i https://mirrors.aliyun.com/pypi/simple  \
+RUN pip install  --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple  \
     psycopg2-binary==$PSYCOPG2 \
     pyodbc==$PYODBC \
     xlsxwriter \
@@ -106,16 +110,22 @@ ARG PANDAS
 ARG SCIKIT_LEARN
 ARG JUPYTERLAB
 ARG NOTEBOOK
+ARG NUMPY
+ARG NUMBA
+ARG XEUS_PYTHON
 
-RUN pip install -i https://mirrors.aliyun.com/pypi/simple \
-    ipython-sql==$IPYTHON_SQL \
+RUN pip install --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple \
     xgboost==$XGBOOST \
     && rm -rf /tmp/pip-*-unpack \
-    &&  conda install -y ipython=$IPYTHON \
+    &&  conda install -c conda-forge -y ipython=$IPYTHON \
         pandas=$PANDAS \
+        numpy=$NUMPY \
+        numba=$NUMBA \
         scikit-learn=$SCIKIT_LEARN \
         jupyterlab=$JUPYTERLAB \
         notebook=$NOTEBOOK \
+        xeus-python=$XEUS_PYTHON \
+        ptvsd \
     && conda clean -y -a
 
 ARG R_ESSENTIAL
@@ -132,8 +142,9 @@ ARG IPYWIDGETS
 ARG SEABORN
 ARG JUPY_NBEXT
 
-RUN  pip install  -i https://mirrors.aliyun.com/pypi/simple  \
+RUN  pip install  --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple   \
      plotly-express \
+     ipympl \
      pyecharts==$PYECHARTS \
      plotly==$PLOTLY \
     && conda install -y \
@@ -149,14 +160,16 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 ARG LAB_MANAGER
 
+RUN node /opt/conda/lib/python3.7/site-packages/jupyterlab/staging/yarn.js config set "strict-ssl" false
+
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@$LAB_MANAGER
 
-RUN jupyter labextension install jupyterlab_bokeh && \
-    jupyter labextension install jupyter-matplotlib
+RUN jupyter labextension install @bokeh/jupyter_bokeh && \
+#    jupyter labextension install @jupyterlab/dataregistry-extension && \
+    jupyter labextension install @jupyterlab/debugger
 
-RUN jupyter labextension install @jupyterlab/plotly-extension && \
-    jupyter labextension install plotlywidget && \
-    jupyter labextension install jupyterlab-chart-editor
+RUN jupyter labextension install jupyterlab-plotly && \
+    jupyter labextension install plotlywidget
 
 RUN jupyter labextension install @jupyterlab/git && \
     pip install --upgrade jupyterlab-git && rm -rf /tmp/pip-*-unpack  && \
