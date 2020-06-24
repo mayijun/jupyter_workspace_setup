@@ -90,10 +90,6 @@ RUN conda install -c conda-forge -y nodejs=$NODEJS && conda clean -y -a
 
 
 # install db related python package and basic packages
-ARG PYODBC
-ARG LIBGCC
-ARG PSYCOPG2
-
 
 RUN pip install  ${PIPOPTION}  \
     psycopg2-binary \
@@ -106,10 +102,7 @@ RUN pip install  ${PIPOPTION}  \
 
 # ipython backend layer packages: used for modeling and computing
 ARG IPYTHON
-ARG IPYTHON_SQL
-ARG XGBOOST
 ARG PANDAS
-ARG SCIKIT_LEARN
 ARG JUPYTERLAB
 ARG NOTEBOOK
 ARG NUMPY
@@ -117,43 +110,36 @@ ARG NUMBA
 ARG XEUS_PYTHON
 
 RUN pip install ${PIPOPTION}\
-    xgboost==$XGBOOST \
+    xgboost \
     ipython==$IPYTHON \
     numpy==$NUMPY \
     numba==$NUMBA \
     pandas==$PANDAS \
-    scikit-learn==$SCIKIT_LEARN \
-    xeus-python==$XEUS_PYTHON \
-    ptvsd \
+    scikit-learn \
     && rm -rf /tmp/pip-*-unpack \
-    &&  conda install -c conda-forge -y  \
-        scikit-learn=$SCIKIT_LEARN \
+    &&  conda install -c conda-forge -y \
         jupyterlab=$JUPYTERLAB \
         notebook=$NOTEBOOK \
+        xeus-python=$XEUS_PYTHON \
+        ptvsd \
     && conda clean -y -a
 
-ARG R_ESSENTIAL
-
-RUN conda install  --yes -c r r-essentials=$R_ESSENTIAL && \
+RUN conda install  --yes -c r r-essentials && \
     conda clean -y -a
 
 # frond end packages: used for graphing and charts
 
-ARG PYECHARTS
 ARG PLOTLY
-ARG CUFFLINKS
 ARG IPYWIDGETS
-ARG SEABORN
-ARG JUPY_NBEXT
 
 RUN  pip install  ${PIPOPTION}  \
      plotly-express \
      ipympl \
-     pyecharts==$PYECHARTS \
+     pyecharts \
      plotly==$PLOTLY \
     && conda install -y \
     ipywidgets=$IPYWIDGETS \
-     seaborn=$SEABORN \
+     seaborn \
      && rm -rf /tmp/pip-*-unpack \
      && conda clean -y -a
 #basic package setup, some packages's version are not defined as they are not stable yet and clean up caches
