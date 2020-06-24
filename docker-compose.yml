@@ -9,6 +9,8 @@ services:
 
           PYTHON: '3.7'
 
+          PIPOPTION: '--trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple'
+
           NODEJS: '12.*'
 
           IPYTHON: '7.15.*'

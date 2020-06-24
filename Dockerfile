@@ -79,6 +79,8 @@ RUN curl --insecure https://packages.microsoft.com/keys/microsoft.asc | apt-key 
 
 #install nodejs as jupyterlab extention required
 
+ARG PIPOPTION
+
 ARG NODEJS
 ARG PYTHON
 
@@ -93,7 +95,7 @@ ARG LIBGCC
 ARG PSYCOPG2
 
 
-RUN pip install  --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple  \
+RUN pip install  ${PIPOPTION}  \
     psycopg2-binary==$PSYCOPG2 \
     pyodbc==$PYODBC \
     xlsxwriter \
@@ -113,7 +115,7 @@ ARG NUMPY
 ARG NUMBA
 ARG XEUS_PYTHON
 
-RUN pip install --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple \
+RUN pip install ${PIPOPTION}\
     xgboost==$XGBOOST \
     && rm -rf /tmp/pip-*-unpack \
     &&  conda install -c conda-forge -y ipython=$IPYTHON \
@@ -141,7 +143,7 @@ ARG IPYWIDGETS
 ARG SEABORN
 ARG JUPY_NBEXT
 
-RUN  pip install  --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple   \
+RUN  pip install  ${PIPOPTION}  \
      plotly-express \
      ipympl \
      pyecharts==$PYECHARTS \
