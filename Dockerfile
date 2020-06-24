@@ -52,11 +52,10 @@ ENV CONDA_DIR=/opt/conda \
 
 ENV PATH=$CONDA_DIR/bin:$PATH
 
-ARG MINICONDA_VERSION
 RUN cd /tmp && \
-    wget --no-check-certificate --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    wget --no-check-certificate --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash Miniconda3-latest-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-latest-Linux-x86_64.sh && \
     conda config --set show_channel_urls yes && \
     conda config --add channels conda-forge &&\
     conda config --set ssl_verify false &&\

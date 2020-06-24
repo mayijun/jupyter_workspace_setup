@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
       args:
           # packages versioning:
-          MINICONDA_VERSION: '4.7.10'
 
           PYTHON: '3.7'
 
