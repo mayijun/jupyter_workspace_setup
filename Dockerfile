@@ -96,8 +96,9 @@ ARG PSYCOPG2
 
 
 RUN pip install  ${PIPOPTION}  \
-    psycopg2-binary==$PSYCOPG2 \
-    pyodbc==$PYODBC \
+    psycopg2-binary \
+    pyodbc \
+    sqlalchemy \
     xlsxwriter \
 	xlrd \
 	python-dateutil \

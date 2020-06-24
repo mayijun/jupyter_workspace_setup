@@ -14,8 +14,6 @@ services:
           NODEJS: '12.*'
 
           IPYTHON: '7.15.*'
-          PYODBC: '4.0.*'
-          PSYCOPG2: '2.8.*'
           XGBOOST: '1.1.*'
           PANDAS: '1.0.*'
           NUMPY: '1.19.*'
