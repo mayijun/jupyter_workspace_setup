@@ -13,4 +13,4 @@ echo "========================================================================"
 
 unset PASSWORD
 
-jupyter lab --allow-root --NotebookApp.password="$HASH"
+jupyter lab --allow-root --collaborative --ServerApp.password="$HASH"

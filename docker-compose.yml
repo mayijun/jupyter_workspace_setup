@@ -7,24 +7,18 @@ services:
       args:
           # packages versioning:
 
-          PYTHON: '3.7'
+          PYTHON: '3.9'
 
           PIPOPTION: '--trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple'
 
-          NODEJS: '12.*'
+          IPYTHON: '7.26.*'
+          PANDAS: '1.3.*'
+          NUMPY: '1.21.*'
+          NUMBA: '0.53.*'
+          JUPYTERLAB: '3.1.*'
 
-          IPYTHON: '7.15.*'
-          PANDAS: '1.0.*'
-          NUMPY: '1.19.*'
-          NUMBA: '0.50.*'
-          JUPYTERLAB: '2.1.*'
-          NOTEBOOK: '6.0.*'
-          XEUS_PYTHON: '0.8.*'
-
-          PLOTLY: '4.*'
-          IPYWIDGETS: '7.5.*'
-
-          LAB_MANAGER: '2.0'
+          PLOTLY: '5.*'
+          IPYWIDGETS: '7.6.*'
 
 
 
