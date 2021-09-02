@@ -92,6 +92,7 @@ RUN pip install  ${PIPOPTION}  \
     pyodbc \
     sqlalchemy \
     xlsxwriter \
+    openpyxl \
 	xlrd \
 	python-dateutil \
 	python-pptx \
@@ -113,6 +114,7 @@ RUN pip install ${PIPOPTION}\
     numba==$NUMBA \
     pandas==$PANDAS \
     jupyterlab==$JUPYTERLAB \
+    voila \
     xeus-python \
     scikit-learn \
     jupyterlab-language-pack-zh-CN \
