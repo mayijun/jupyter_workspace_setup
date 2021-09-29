@@ -11,10 +11,10 @@ services:
 
           PIPOPTION: '--trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple'
 
-          IPYTHON: '7.26.*'
+          IPYTHON: '7.28.*'
           PANDAS: '1.3.*'
           NUMPY: '1.21.*'
-          NUMBA: '0.53.*'
+          NUMBA: '0.54.*'
           JUPYTERLAB: '3.1.*'
 
           PLOTLY: '5.*'
